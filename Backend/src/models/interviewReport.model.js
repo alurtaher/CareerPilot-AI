@@ -10,13 +10,13 @@ const mongoose = require('mongoose')
  * -Techinical questions  :
  *          [{
  *          question :"",
- *          intension : "",
+ *          intention : "",
  *          answer : ""
  *          }] 
  * -Behavioral questions  :
  *          [{
  *          question :"",
- *          intension : "",
+ *          intention : "",
  *          answer : ""
  *          }]
  * -Skill gaps : [{
