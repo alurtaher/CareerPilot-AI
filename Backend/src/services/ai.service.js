@@ -101,7 +101,8 @@ ${jobDescription}
 `;
 
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview", // consider trying "gemini-1.5-flash" or "gemini-1.5-pro" if available
+    model: "gemini-3-flash-preview",
+    // model: "gemini-2.5-flash", // consider trying "gemini-1.5-flash" or "gemini-1.5-pro" if available
     contents: prompt,
     config: {
       responseMimeType: "application/json",
