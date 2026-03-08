@@ -1,10 +1,14 @@
-import { useContext , useEffect} from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../auth.context";
 import { login, register, logout, getMe } from "../services/auth.api";
 
+
+
 export const useAuth = () => {
+
     const context = useContext(AuthContext)
     const { user, setUser, loading, setLoading } = context
+
 
     const handleLogin = async ({ email, password }) => {
         setLoading(true)
@@ -23,8 +27,8 @@ export const useAuth = () => {
         try {
             const data = await register({ username, email, password })
             setUser(data.user)
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            console.log(err)
         } finally {
             setLoading(false)
         }
@@ -35,26 +39,29 @@ export const useAuth = () => {
         try {
             await logout()
             setUser(null)
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            console.log(err)
         } finally {
             setLoading(false)
         }
     }
 
     useEffect(() => {
+
         const getAndSetUser = async () => {
             try {
-                const data = await getMe();
-                setUser(data.user);
-            } catch (error) {
-                console.error("Auth check failed:", error);
-                setUser(null); // optional but safe
+
+                const data = await getMe()
+                setUser(data.user)
+            } catch (err) { 
+                console.log(err)
             } finally {
-                setLoading(false); // ALWAYS stop loading
+                setLoading(false)
             }
         }
+
         getAndSetUser()
+
     }, [])
 
     return { user, loading, handleRegister, handleLogin, handleLogout }

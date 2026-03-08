@@ -1,39 +1,39 @@
-const express = require('express')
-const router = express.Router();
-const {
-    registerUserController, 
-    loginUserController, 
-    logoutUserController, 
-    getMeController 
-    } = require('../controllers/auth.controller')
-const { authUser } = require('../middlewares/auth.middleware')
+const { Router } = require('express')
+const authController = require("../controllers/auth.controller")
+const authMiddleware = require("../middlewares/auth.middleware")
+
+const authRouter = Router()
 
 /**
  * @route POST /api/auth/register
- * @description Register a new User
- * @access public
+ * @description Register a new user
+ * @access Public
  */
-router.post('/register', registerUserController)
+authRouter.post("/register", authController.registerUserController)
+
 
 /**
  * @route POST /api/auth/login
- * @description Login a User with user and password
- * @access public
+ * @description login user with email and password
+ * @access Public
  */
-router.post('/login', loginUserController)
+authRouter.post("/login", authController.loginUserController)
+
 
 /**
  * @route GET /api/auth/logout
- * @description Clear token from Cookie and add the user in blacklist
+ * @description clear token from user cookie and add the token in blacklist
  * @access public
  */
-router.get('/logout', logoutUserController)
+authRouter.get("/logout", authController.logoutUserController)
+
 
 /**
  * @route GET /api/auth/get-me
- * @description Clear the current login user-detail
+ * @description get the current logged in user details
  * @access private
  */
-router.get('/get-me', authUser, getMeController)
+authRouter.get("/get-me", authMiddleware.authUser, authController.getMeController)
 
-module.exports = router
+
+module.exports = authRouter
