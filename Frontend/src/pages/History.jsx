@@ -123,7 +123,7 @@ export default function History() {
                     </div>
                     <div>
                       <div style={{ fontFamily: "Syne,sans-serif", fontWeight: 600, fontSize: 16, color: "#fff", marginBottom: 4 }}>
-                        {report.jobTitle || "Interview Plan"}
+                        {report.jobTitle || report.jobRole || report.role || report.position || report.title || "Interview Plan"}
                       </div>
                       <div style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
                         {new Date(report.createdAt).toLocaleDateString("en-GB", {

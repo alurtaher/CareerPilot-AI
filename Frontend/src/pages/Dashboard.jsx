@@ -293,7 +293,7 @@ export default function Dashboard() {
                   className="report-card"
                 >
                   <div style={{ fontFamily: "Syne,sans-serif", fontWeight: 600, fontSize: 15, color: "#fff" }}>
-                    {report.jobTitle || "Interview Plan"}
+                    {report.jobTitle || report.jobRole || report.role || report.position || report.title || "Interview Plan"}
                   </div>
                   <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
                     Generated on {new Date(report.createdAt).toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" })}

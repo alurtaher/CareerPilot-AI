@@ -99,6 +99,7 @@ function SkillGap({ items = [] }) {
 
 function PrepPlan({ plan }) {
   if (!plan) return null;
+
   if (typeof plan === "string") {
     return (
       <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.8, whiteSpace: "pre-wrap" }}>
@@ -106,12 +107,72 @@ function PrepPlan({ plan }) {
       </div>
     );
   }
+
   if (Array.isArray(plan)) {
+    // ── Shape: { day, focus, tasks[] } ──────────────────────────────
+    if (plan[0]?.day !== undefined && plan[0]?.focus) {
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {plan.map((step, i) => (
+            <div key={step._id || i} style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 12, overflow: "hidden",
+            }}>
+              {/* Day header */}
+              <div style={{
+                display: "flex", alignItems: "center", gap: 12,
+                padding: "14px 18px",
+                borderBottom: "1px solid rgba(255,255,255,0.05)",
+                background: "rgba(233,30,140,0.05)",
+              }}>
+                <div style={{
+                  minWidth: 36, height: 36, borderRadius: 8,
+                  background: "rgba(233,30,140,0.18)", color: "#e91e8c",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 13, fontWeight: 800, fontFamily: "Syne,sans-serif",
+                  flexShrink: 0,
+                }}>
+                  D{step.day}
+                </div>
+                <div style={{
+                  fontSize: 15, fontWeight: 700, color: "#fff",
+                  fontFamily: "Syne,sans-serif",
+                }}>
+                  {step.focus}
+                </div>
+              </div>
+
+              {/* Tasks */}
+              {Array.isArray(step.tasks) && (
+                <div style={{ padding: "12px 18px 16px", display: "flex", flexDirection: "column", gap: 8 }}>
+                  {step.tasks.map((task, j) => (
+                    <div key={j} style={{
+                      display: "flex", alignItems: "flex-start", gap: 10,
+                    }}>
+                      <div style={{
+                        marginTop: 5, minWidth: 7, height: 7, borderRadius: "50%",
+                        background: "#e91e8c", opacity: 0.7, flexShrink: 0,
+                      }} />
+                      <span style={{ fontSize: 14, color: "rgba(255,255,255,0.72)", lineHeight: 1.6 }}>
+                        {task}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // ── Generic array fallback ───────────────────────────────────────
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {plan.map((step, i) => {
           const text = typeof step === "string" ? step : step.task || step.action || JSON.stringify(step);
-          const week = typeof step === "object" ? step.week || step.timeframe : null;
+          const timeframe = typeof step === "object" ? step.week || step.timeframe : null;
           return (
             <div key={i} style={{
               display: "flex", gap: 12, padding: "14px 16px",
@@ -125,7 +186,7 @@ function PrepPlan({ plan }) {
                 fontSize: 13, fontWeight: 700,
               }}>{i + 1}</div>
               <div>
-                {week && <div style={{ fontSize: 11, color: "#e91e8c", fontWeight: 600, marginBottom: 3 }}>{week}</div>}
+                {timeframe && <div style={{ fontSize: 11, color: "#e91e8c", fontWeight: 600, marginBottom: 3 }}>{timeframe}</div>}
                 <div style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>{text}</div>
               </div>
             </div>
@@ -134,7 +195,7 @@ function PrepPlan({ plan }) {
       </div>
     );
   }
-  // object with week keys etc
+
   return (
     <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.8 }}>
       {JSON.stringify(plan, null, 2)}
