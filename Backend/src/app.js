@@ -11,6 +11,10 @@ app.use(cors({
     credentials: true
 }))
 
+app.get('/wake',(req,res)=>{
+    res.status(200).json({"message":"Service is running"})
+})
+
 /* require all the routes here */
 const authRouter = require("./routes/auth.routes")
 const interviewRouter = require("./routes/interview.routes")
