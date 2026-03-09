@@ -216,7 +216,7 @@ CareerPilot-AI uses **GEMINI AI** to generate structured interview reports:
 | `PORT` | Backend server port |
 | `MONGODB_URI` | MongoDB connection string |
 | `JWT_SECRET` | Secret key for JWT signing |
-| `GOOGLE_GENAI_API_KEY` | Claude AI API key |
+| `GOOGLE_GENAI_API_KEY` | GEMINI AI API key |
 
 ---
 
@@ -235,7 +235,6 @@ Both frontend and backend are deployed on **Render**.
 ## 🔮 Upcoming Features
 
 - [ ] Mock Interview Simulator (multi-turn AI conversation)
-- [ ] ATS Resume Score Checker
 - [ ] Voice Answer Practice (Web Speech API)
 - [ ] Redis caching for AI responses
 - [ ] Job queue for async report generation
